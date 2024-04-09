@@ -73,8 +73,6 @@
   let windowW = window.innerWidth
   let windowH = window.innerHeight
   // Define variables
-  let money = 1000;
-  let exp = 200
   //crops
   let crops = [];
   let wheat
@@ -92,7 +90,10 @@
   let prestigeProfit = 1
   let prestigeCost = 1
   let level = 1
+  let sugarcaneBought = 0
   let speed = 5
+  let savedMoney = 1000 
+  let savedEXP = 200
   //size of farmer
   let farmerX = windowW / 2
   let farmerY = windowH / 2
@@ -116,14 +117,20 @@
     bg = loadImage('dirtbg.png')
   }
 
-  function saveData(money, exp) {
-    localStorage.setItem('money', money)
-    localStorage.setItem('exp', exp)
+  function saveData() {
+    localStorage.setItem('money', savedMoney)
+    localStorage.setItem('exp', savedEXP)
   }
 
   function loadGameState() {
-    let savedMoney = localStorage.getItem('money')
-    let savedEXP = localStorage.getItem('exp')
+    if (localStorage.getItem('money')) {
+      savedMoney = parseFloat(localStorage.getItem('money'))
+      console.log("RAN 100")
+    }
+    if (localStorage.getItem('exp')) {
+      savedEXP = parseFloat(localStorage.getItem('exp'))
+    }
+    
   }
 
   function setup() {
@@ -134,23 +141,28 @@
       let y = random(height / 1.5);
       crops.push(new Wheat(x, y));
     }
+    loadGameState()
+  }
+
+  window.onload = function (){
+    localStorage.getItem('sugarcaneBought')
+    
   }
 
   function draw() {
     clear()
     imageMode(CORNER)
     background(bg);
-    loadGameState()
+    saveData()
 
     // Display money
-    document.getElementById('money').innerText = "Money: $" + money
-    document.getElementById('EXP').innerText = "Exp: " + exp
+    document.getElementById('money').innerText = "Money: $" + savedMoney
+    document.getElementById('EXP').innerText = "Exp: " + savedEXP
 
     //Display how much until next upgrade
     if (level == 1) {
       document.getElementById('placeholder').innerText = "Next Upgrade: $1,500 & 300 Exp"
       localStorage.setItem('level', level)
-
     }
     if (level == 2) {
       document.getElementById('placeholder').innerText = "Next Upgrade: $4,500 & 1,000 Exp"
@@ -181,8 +193,8 @@
     // Harvest mature crops
     for (let i = crops.length - 1; i >= 0; i--) {
       if (crops[i].isMature()) {
-        money += crops[i].harvest();
-        exp += crops[i].exp()
+        savedMoney += crops[i].harvest();
+        savedEXP += crops[i].exp()
         crops.splice(i, 1);
       }
     }
@@ -256,81 +268,80 @@
   function mousePressed() {
     let currentTime = millis()
     if (currentTime - lastClickTime > delay) {
-      console.log('clicked')
       lastClickTime = currentTime
       if (ableToCrop == true) {
         //Wheat
-        if (money >= 10 && exp >= 0) {
-          if (money < 1500 || exp <= 300) {
+        if (savedMoney >= 10 && savedEXP >= 0) {
+          if (savedMoney < 1500 || savedEXP <= 300) {
             let x = farmerX + 20;
             let y = farmerY - 20;
             crops.push(new Wheat(x, y));
-            money -= 10;
+            savedMoney -= 10;
           }
         }
 
         //Sugarcane
-        if (money > 1500 && exp >= 300) {
-          if (money < 4500 || exp <= 1000) {
+          if (savedMoney > 1500 && savedEXP >= 300) {
+            if (savedMoney < 4500 || savedEXP <= 1000) {
             let x = farmerX + 20;
             let y = farmerY - 20;
             crops.push(new Sugarcane(x, y))
-            money -= 25
+            savedMoney -= 25
             level = 2
+            }
           }
-        }
-
+          
         //Corn
-        if (money > 4500 && exp >= 1000) {
-          if (money < 7500 || exp <= 2000) {
+        if (savedMoney > 4500 && savedEXP >= 1000) {
+          if (savedMoney < 7500 || savedEXP <= 2000) {
             let x = farmerX + 20;
             let y = farmerY - 20;
             crops.push(new Corn(x, y))
-            money -= 40
+            savedMoney -= 40
             level = 3
           }
         }
 
         //Sorghum
-        if (money > 7500 && exp >= 2000) {
-          if (money < 11000 || exp <= 4000) {
+        if (savedMoney > 7500 && savedEXP >= 2000) {
+          if (savedMoney < 11000 || savedEXP <= 4000) {
             let x = farmerX + 20;
             let y = farmerY - 20;
             crops.push(new Sorghum(x, y))
-            money -= 60
+            savedMoney -= 60
             level = 4
           }
         }
 
         //Canola
-        if (money > 11000 && exp >= 4000) {
-          if (money < 16000 || exp <= 6000) {
+        if (savedMoney > 11000 && savedEXP >= 4000) {
+          if (savedMoney < 16000 || savedEXP <= 6000) {
             let x = farmerX + 20;
             let y = farmerY - 20;
             crops.push(new Canola(x, y))
-            money -= 80
+            savedMoney -= 80
             level = 5
           }
         }
 
         //Sunflower 
-        if (money > 16000 && exp >= 6000) {
-          if (money < 25000 || exp <= 10000) {
+        if (savedMoney > 16000 && savedEXP >= 6000) {
+          if (savedMoney < 25000 || savedEXP <= 10000) {
             let x = farmerX + 20;
             let y = farmerY - 20;
             crops.push(new Sunflower(x, y))
-            money -= 100
+            savedMoney -= 100
             level = 6
           }
         }
 
         //Soybean
-        if (money > 25000 && exp >= 10000) {
-          if (money < 45000 || exp <= 20000) {
+        if (savedMoney > 25000 && savedEXP >= 10000) {
+          if (savedMoney < 45000 || savedEXP <= 20000) {
             let x = farmerX + 20;
             let y = farmerY - 20;
             crops.push(new Soybean(x, y))
-            money -= 140
+            savedMoney -= 140
             level = 7
           }
         }

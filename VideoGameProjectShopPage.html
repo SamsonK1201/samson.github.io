@@ -94,7 +94,7 @@
         .statsdiv {
             width: 100%;
             margin-top: -30px;
-            
+
         }
 
         h2 {
@@ -154,33 +154,59 @@
     let money = 0
     let level = 0
     let sugarcaneBought = 0
+    let cornBought = 0
+    let sorghumBought = 0
+    let canolaBought = 0
+    let sunflowerBought = 0
+    let soybeanBought = 0
+    
+
 
     function back() {
         window.location.href = "VideoGameProject.html"
     }
 
     window.onload = function () {
-        money = localStorage.getItem('money')
-        exp = localStorage.getItem('exp')
-        level = localStorage.getItem('level')
+        money = parseFloat(localStorage.getItem('money'))
+        exp = parseFloat(localStorage.getItem('exp'))
+        level = parseFloat(localStorage.getItem('level'))
         //FIX LOCAL STORAGE PLS HURRY TIME IS RUNNING OUT 
         document.getElementById('money').innerHTML = "Money: $" + money
         document.getElementById('exp').innerHTML = "Exp: " + exp
         sugarcaneBought = parseFloat(localStorage.getItem('sugarcaneBought'))
-        cornBought = parseFloat(localStorage.getItem('sugarcaneBought'))
-        if (sugarcaneBought == 1){
+        cornBought = parseFloat(localStorage.getItem('cornBought'))
+        sorghumBought = parseFloat(localStorage.getItem('sorghumBought'))
+        canolaBought = parseFloat(localStorage.getItem('canolaBought'))
+        sunflowerBought = parseFloat(localStorage.getItem('sunflowerBought'))
+        soybeanBought = parseFloat(localStorage.getItem('soybeanBought'))
+        if (sugarcaneBought == 1) {
             document.getElementById('sugarcane').innerHTML = "You bought this!"
         }
+        if (cornBought == 1) {
+            document.getElementById('corn').innerHTML = "You bought this!"
+        }
+        if (sorghumBought == 1) {
+            document.getElementById('sorghum').innerHTML = "You bought this!"
+        }
+        if (canolaBought == 1) {
+            document.getElementById('canola').innerHTML = "You bought this!"
+        }
+        if (sunflowerBought == 1) {
+            document.getElementById('sunflower').innerHTML = "You bought this!"
+        }
+        if (soybeanBought == 1) {
+            document.getElementById('soybean').innerHTML = "You bought this!"
+        }
+        console.log(level)
     }
 
     function sugarcane() {
-        console.log(level)
-        if (level == 1){
-            if (money >= 1500 && exp >= 300){
+        if (level >= 1) {
                 document.getElementById('sugarcane').innerHTML = "You bought this!"
                 sugarcaneBought = 1
                 localStorage.setItem('sugarcaneBought', sugarcaneBought)
-            }
+                plantWheat = 0
+                localStorage.setItem('plantWheat', plantWheat)
         }
         else {
             document.getElementById('sugarcane').innerHTML = "You can't buy this yet!"
@@ -189,8 +215,8 @@
     }
 
     function corn() {
-        if (level == 2){
-            if (money >= 4500 && exp >= 1000){
+        if (level >= 2) {
+            if (money >= 4500 && exp >= 1000) {
                 document.getElementById('corn').innerHTML = "You bought this!"
                 cornBought = 1
                 localStorage.setItem('cornBought', cornBought)
@@ -202,39 +228,55 @@
     }
 
     function sorghum() {
-        if (level == 3){
-            if (money >= 4500 && exp >= 1000){
+        if (level >= 3) {
+            if (money >= 7500 && exp >= 2000) {
                 document.getElementById('sorghum').innerHTML = "You bought this!"
-                cornBought = 1
-                localStorage.setItem('sorghumBought', cornBought)
+                sorghumBought = 1
+                localStorage.setItem('sorghumBought', sorghumBought)
             }
         }
         else {
-            document.getElementById('corn').innerHTML = "You can't buy this yet!"
+            document.getElementById('sorghum').innerHTML = "You can't buy this yet!"
         }
     }
 
     function canola() {
-        if (level == 4){
-            if (money >= 4500 && exp >= 1000){
+        if (level >= 4) {
+            if (money >= 11000 && exp >= 4000) {
                 document.getElementById('canola').innerHTML = "You bought this!"
-                cornBought = 1
+                canolaBought = 1
                 localStorage.setItem('canolaBought', canolaBought)
             }
         }
         else {
-            document.getElementById('corn').innerHTML = "You can't buy this yet!"
+            document.getElementById('canola').innerHTML = "You can't buy this yet!"
         }
     }
 
     function sunflower() {
-        croplevel = 5
-        document.getElementById('sunflower').innerHTML = "You bought this"
+        if (level >= 5) {
+            if (money >= 16000 && exp >= 6000) {
+                document.getElementById('canola').innerHTML = "You bought this!"
+                sunflowerBought = 1
+                localStorage.setItem('sunflowerBought', sunflowerBought)
+            }
+        }
+        else {
+            document.getElementById('sunflower').innerHTML = "You can't buy this yet!"
+        }
     }
 
     function soybean() {
-        croplevel = 6
-        document.getElementById('soybean').innerHTML = "You bought this"
+        if (level >= 6) {
+            if (money >= 25000 && exp >= 10000) {
+                document.getElementById('soybean').innerHTML = "You bought this!"
+                soybeanBought = 1
+                localStorage.setItem('soybeanBought', soybeanBought)
+            }
+        }
+        else {
+            document.getElementById('soybean').innerHTML = "You can't buy this yet!"
+        }
     }
 
 

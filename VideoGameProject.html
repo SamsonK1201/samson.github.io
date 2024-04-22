@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Farming Simulator</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.js"
+    integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     body {
       padding: 0;
@@ -22,13 +25,38 @@
       color: white;
       top: 2%;
       right: 1%;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #shop:hover {
+      transform: translateY(-2.5px);
     }
 
     #clearData {
       position: absolute;
       color: white;
+      top: 18%;
+      right: 1%;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    #clearData:hover{
+      transform: translateY(-2.5px);
+    }
+
+    #help{
+      position: absolute;
+      color: white;
       top: 10%;
       right: 1%;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #help:hover{
+      transform: translateY(-2.5px);
     }
 
     button {
@@ -75,16 +103,21 @@
   <div id="clearData">
     <button onclick="clearData()">Clear</button>
   </div>
+  <div id="help">
+    <button onclick="help()">Help</button>
+  </div>
 </body>
 <script>
-  /*TO DO LIST: PLS DO SUPER IMPRRANT LIKE 1 WEEK LEFT
+  /*TO DO LIST: PLS DO SUPER IMPRRANT LIKE 1 WEEK LEFT IDK HOW TO STRESS THIS ENOUGH WHY DID U CODE YESTERDAY U ABSOLUTE BUM
+
   CROP ANIMATION GROWING KEYFRAME
   COMMENT OUT THINGS
   STORY: SEPERATE PAGE
   ADD PLANTING SOUND/BACKGROUND MUSIC
-  SHOP DESCIRPTION
   HELP PAGE/TUTORIAL: SETTINGS BUTTON? OR SERPARETE
   FIX CROP OVERLAP
+  RANDOM
+  MAKE END SCREEN FOR CLEAR 
 
   POSSIBLE: 
   GO BACK TO PREVIOUS CROPS
@@ -103,6 +136,7 @@
   let canola
   let sunflower
   let soybean
+  let plant
   let ableToCrop = true
   let lastClickTime = 0
   let delay = 350
@@ -117,7 +151,7 @@
   let soybeanBought = 0
   let plantWheat = 1
   let speed = 5
-  let savedMoney = 0
+  let savedMoney = 100
   let savedEXP = 0
   //size of farmer
   let farmerX = windowW / 2
@@ -129,6 +163,9 @@
     window.location.href = "VideoGameProjectShopPage.html"
   }
 
+  function help(){
+    window.location.href = "VideoGameProjectHelpPage.html"
+  }
   function preload() {
     //load all images
     wheat = loadImage('wheat (2).png')
@@ -140,6 +177,7 @@
     soybean = loadImage('soybean (2).png')
     farmer = loadImage('farmer.png')
     bg = loadImage('dirtbg.png')
+    plantSound = loadSound('plant.mp3')
   }
 
   function saveData() {
@@ -183,8 +221,8 @@
   }
   function clearData() {
     localStorage.clear()
-    savedMoney = 1400
-    savedEXP = 290
+    savedMoney = 100
+    savedEXP = 0
     savedLevel = 1
     sugarcaneBought = 0
     console.log('clear')
@@ -219,7 +257,7 @@
     if (savedMoney >= 1500 && savedEXP >= 300) {
       if (savedMoney < 4500 && savedEXP <= 1000) {
         document.getElementById('placeholder').innerText = "Next Upgrade: $4,500 & 1,000 Exp"
-        level = 2
+        level = 1
         localStorage.setItem('level', savedLevel)
         console.log('level 2')
       }
@@ -227,28 +265,28 @@
     if (savedMoney >= 4500 && savedEXP >= 1000) {
       if (savedMoney < 7500 && savedEXP < 2000) {
         document.getElementById('placeholder').innerText = "Next Upgrade: $7,500 & 2,000 Exp"
-        level = 3
+        level = 2
         localStorage.setItem('level', savedLevel)
       }
     }
     if (savedMoney >= 7500 && savedEXP >= 2000) {
       if (savedMoney < 11000 && savedEXP < 4000) {
         document.getElementById('placeholder').innerText = "Next Upgrade: $11,000 & 4,000 Exp"
-        level = 4
+        level = 3
         localStorage.setItem('level', savedLevel)
       }
     }
     if (savedMoney >= 11000 && savedEXP >= 4000) {
       if (savedMoney < 16000 && savedEXP < 6000) {
         document.getElementById('placeholder').innerText = "Next Upgrade: $16,000 & 6,000 Exp"
-        level = 5
+        level = 4
         localStorage.setItem('level', savedLevel)
       }
     }
     if (savedMoney >= 16000 && savedEXP >= 6000) {
       if (savedMoney < 25000 && savedEXP < 10000) {
         document.getElementById('placeholder').innerText = "Next Upgrade: $25,000 & 10,000 Exp"
-        level = 6
+        level = 5
         localStorage.setItem('level', savedLevel)
       }
     }
@@ -351,6 +389,9 @@
           savedMoney -= 10;
           savedLevel = 1
           console.log('wheat')
+          plant.play()
+          plant.setVolume(0.5)
+          console.log('plantsound')
         }
 
         //Sugarcane
@@ -363,58 +404,53 @@
         }
 
         //Corn
-        if (cornBought == 1){
-            let x = farmerX + 20;
-            let y = farmerY - 20;
-            crops.push(new Corn(x, y))
-            savedMoney -= 40
-            console.log('corn')
-          }
-        
+        if (cornBought == 1) {
+          let x = farmerX + 20;
+          let y = farmerY - 20;
+          crops.push(new Corn(x, y))
+          savedMoney -= 40
+          console.log('corn')
+        }
+
 
         //Sorghum
-        if (sorghumBought == 1){
-            let x = farmerX + 20;
-            let y = farmerY - 20;
-            crops.push(new Sorghum(x, y))
-            savedMoney -= 60
-            savedLevel = 4
-          }
-        
+        if (sorghumBought == 1) {
+          let x = farmerX + 20;
+          let y = farmerY - 20;
+          crops.push(new Sorghum(x, y))
+          savedMoney -= 60
+          savedLevel = 4
+        }
+
 
         //Canola
         if (canolaBought == 1) {
-            let x = farmerX + 20;
-            let y = farmerY - 20;
-            crops.push(new Canola(x, y))
-            savedMoney -= 80
-            
-          }
-        
+          let x = farmerX + 20;
+          let y = farmerY - 20;
+          crops.push(new Canola(x, y))
+          savedMoney -= 80
+
+        }
+
 
         //Sunflower 
-        if (sunflowerBought == 1){
-            let x = farmerX + 20;
-            let y = farmerY - 20;
-            crops.push(new Sunflower(x, y))
-            savedMoney -= 100
+        if (sunflowerBought == 1) {
+          let x = farmerX + 20;
+          let y = farmerY - 20;
+          crops.push(new Sunflower(x, y))
+          savedMoney -= 100
         }
 
         //Soybean
         if (soybeanBought == 1) {
-            let x = farmerX + 20;
-            let y = farmerY - 20;
-            crops.push(new Soybean(x, y))
-            savedMoney -= 140
+          let x = farmerX + 20;
+          let y = farmerY - 20;
+          crops.push(new Soybean(x, y))
+          savedMoney -= 140
         }
       }
     }
   }
-
-
-  /*if (money > 30000 && exp >= 40000){
-    //rebirth
-  }*/
 
   class Wheat {
     constructor(x, y) {

@@ -1,0 +1,53 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <title>Help Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        ::selection {
+            background-color: transparent;
+        }
+
+        #back {
+            position: absolute;
+            color: white;
+            top: 2%;
+            left: 1%;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        button {
+            font-size: 30px;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
+            border-radius: 10px;
+        }
+
+        #back:hover {
+            transform: translateY(-2.5px);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="back">
+        <button onclick="back()">Back</button>
+    </div>
+
+    <script>
+        function back() {
+            window.location.href = "VideoGameProject.html"
+        }
+    </script>
+</body>
+
+</html>

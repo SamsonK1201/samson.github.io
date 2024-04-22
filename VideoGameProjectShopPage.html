@@ -22,6 +22,8 @@
             color: white;
             top: 2%;
             left: 1%;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
 
         #backButton {
@@ -31,11 +33,21 @@
             border-radius: 10px;
         }
 
+        #back:hover{
+            transform: translateY(-2.5px);
+        }
+
         .shopButton {
-            font-size: 20px;
+            font-size: 22px;
             font-family: 'Courier New', Courier, monospace;
             font-style: bold;
             border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+
+        }
+        .shopButton:hover{
+            transform: translateY(-2.5px);
         }
 
         #shop {
@@ -47,14 +59,35 @@
             margin: auto;
             align-content: center;
             flex-direction: row;
-            margin-top: 2%;
+            margin-top: 1%;
             text-align: center;
         }
 
         .row1 {
             width: 20%;
-            height: 60%;
+            height: 55%;
             margin: auto;
+        }
+
+        .subrow1 {
+            width: 100%;
+            height: 15%;
+            margin: auto;
+            padding-top: 4%;
+            font-size: 18px;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
+            text-align: center;
+        }
+
+        .subrow2 {
+            width: 100%;
+            height: 15%;
+            margin: auto;
+            font-size: 18px;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
+            text-align: center;
         }
 
         #shop2 {
@@ -66,15 +99,36 @@
             margin: auto;
             align-content: center;
             flex-direction: row;
-            margin-top: -2%;
+            margin-top: -4%;
             text-align: center;
 
         }
 
         .row2 {
             width: 20%;
-            height: 60%;
+            height: 55%;
             margin: auto;
+        }
+
+        .subrow3 {
+            width: 100%;
+            height: 15%;
+            margin: auto;
+            padding-top: 4%;
+            font-size: 18px;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
+            text-align: center;
+        }
+
+        .subrow4 {
+            width: 100%;
+            height: 15%;
+            margin: auto;
+            font-size: 18px;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
+            text-align: center;
         }
 
         .crop {
@@ -87,8 +141,8 @@
             flex-direction: column;
             left: 10%;
             width: 30%;
-            height: 10vh;
             position: absolute;
+            height: 5vh;
         }
 
         .statsdiv {
@@ -99,6 +153,12 @@
 
         h2 {
             color: black;
+        }
+
+        #sunflowerpic {
+            margin-top: 3%;
+            width: 95%;
+            height: 95%;
         }
     </style>
 
@@ -122,28 +182,40 @@
         <div class="row1">
             <img src="sugarcane.png" class="crop">
             <button onclick="sugarcane()" id="sugarcane" class="shopButton">Sugarcane</button>
+            <p class="subrow1">$1,500</p>
+            <p class="subrow2">300 Exp</p>
         </div>
         <div class="row1">
             <img src="corn.png" class="crop">
             <button onclick="corn()" id="corn" class="shopButton">Corn</button>
+            <p class="subrow1">$4,500</p>
+            <p class="subrow2">1,000 Exp</p>
         </div>
         <div class="row1">
             <img src="sorghum.png" class="crop">
             <button onclick="sorghum()" id="sorghum" class="shopButton">Sorghum</button>
+            <p class="subrow1">$7,500</p>
+            <p class="subrow2">2,000 Exp</p>
         </div>
     </div>
     <div id="shop2">
         <div class="row2">
             <img src="canola.png" class="crop">
             <button onclick="canola()" id="canola" class="shopButton">Canola</button>
+            <p class="subrow3">$11,000</p>
+            <p class="subrow4">4,000 Exp</p>
         </div>
         <div class="row2">
-            <img src="sunflower.png" class="crop">
+            <img src="sunflower.png" class="crop" id="sunflowerpic">
             <button onclick="sunflower()" id="sunflower" class="shopButton">Sunflower</button>
+            <p class="subrow3">$16,000</p>
+            <p class="subrow4">6,000 Exp</p>
         </div>
         <div class="row2">
             <img src="soybean.png" class="crop">
             <button onclick="soybean()" id="soybean" class="shopButton">Soybean</button>
+            <p class="subrow3">$25,000</p>
+            <p class="subrow4">10,000 Exp</p>
         </div>
     </div>
 </body>
@@ -159,7 +231,7 @@
     let canolaBought = 0
     let sunflowerBought = 0
     let soybeanBought = 0
-    
+
 
 
     function back() {
@@ -201,12 +273,12 @@
     }
 
     function sugarcane() {
-        if (level >= 1) {
-                document.getElementById('sugarcane').innerHTML = "You bought this!"
-                sugarcaneBought = 1
-                localStorage.setItem('sugarcaneBought', sugarcaneBought)
-                plantWheat = 0
-                localStorage.setItem('plantWheat', plantWheat)
+        if (money >= 1500 && exp >= 300) {
+            document.getElementById('sugarcane').innerHTML = "You bought this!"
+            sugarcaneBought = 1
+            localStorage.setItem('sugarcaneBought', sugarcaneBought)
+            plantWheat = 0
+            localStorage.setItem('plantWheat', plantWheat)
         }
         else {
             document.getElementById('sugarcane').innerHTML = "You can't buy this yet!"
@@ -215,12 +287,13 @@
     }
 
     function corn() {
-        if (level >= 2) {
-            if (money >= 4500 && exp >= 1000) {
-                document.getElementById('corn').innerHTML = "You bought this!"
-                cornBought = 1
-                localStorage.setItem('cornBought', cornBought)
-            }
+        if (money >= 4500 && exp >= 1000) {
+            document.getElementById('corn').innerHTML = "You bought this!"
+            cornBought = 1
+            localStorage.setItem('cornBought', cornBought)
+            sugarcaneBought = 0
+            localStorage.setItem('sugarcaneBought', sugarcaneBought)
+            console.log('corn')
         }
         else {
             document.getElementById('corn').innerHTML = "You can't buy this yet!"
@@ -228,12 +301,10 @@
     }
 
     function sorghum() {
-        if (level >= 3) {
-            if (money >= 7500 && exp >= 2000) {
-                document.getElementById('sorghum').innerHTML = "You bought this!"
-                sorghumBought = 1
-                localStorage.setItem('sorghumBought', sorghumBought)
-            }
+        if (money >= 7500 && exp >= 2000) {
+            document.getElementById('sorghum').innerHTML = "You bought this!"
+            sorghumBought = 1
+            localStorage.setItem('sorghumBought', sorghumBought)
         }
         else {
             document.getElementById('sorghum').innerHTML = "You can't buy this yet!"
@@ -241,12 +312,10 @@
     }
 
     function canola() {
-        if (level >= 4) {
-            if (money >= 11000 && exp >= 4000) {
-                document.getElementById('canola').innerHTML = "You bought this!"
-                canolaBought = 1
-                localStorage.setItem('canolaBought', canolaBought)
-            }
+        if (money >= 11000 && exp >= 4000) {
+            document.getElementById('canola').innerHTML = "You bought this!"
+            canolaBought = 1
+            localStorage.setItem('canolaBought', canolaBought)
         }
         else {
             document.getElementById('canola').innerHTML = "You can't buy this yet!"
@@ -254,12 +323,10 @@
     }
 
     function sunflower() {
-        if (level >= 5) {
-            if (money >= 16000 && exp >= 6000) {
-                document.getElementById('canola').innerHTML = "You bought this!"
-                sunflowerBought = 1
-                localStorage.setItem('sunflowerBought', sunflowerBought)
-            }
+        if (money >= 16000 && exp >= 6000) {
+            document.getElementById('canola').innerHTML = "You bought this!"
+            sunflowerBought = 1
+            localStorage.setItem('sunflowerBought', sunflowerBought)
         }
         else {
             document.getElementById('sunflower').innerHTML = "You can't buy this yet!"
@@ -267,12 +334,10 @@
     }
 
     function soybean() {
-        if (level >= 6) {
-            if (money >= 25000 && exp >= 10000) {
-                document.getElementById('soybean').innerHTML = "You bought this!"
-                soybeanBought = 1
-                localStorage.setItem('soybeanBought', soybeanBought)
-            }
+        if (money >= 25000 && exp >= 10000) {
+            document.getElementById('soybean').innerHTML = "You bought this!"
+            soybeanBought = 1
+            localStorage.setItem('soybeanBought', soybeanBought)
         }
         else {
             document.getElementById('soybean').innerHTML = "You can't buy this yet!"

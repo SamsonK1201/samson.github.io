@@ -1,0 +1,53 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <title>Story Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        ::selection {
+            background-color: transparent;
+        }
+
+        #next {
+            position: absolute;
+            color: white;
+            top: 91%;
+            left: 87%;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        button {
+            font-size: 30px;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
+            border-radius: 10px;
+        }
+
+        #next:hover {
+            transform: translateY(-2.5px);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="next">
+        <button onclick="next()">Continue</button>
+    </div>
+
+    <script>
+        function next() {
+            window.location.href = "VideoGameProject.html"
+        }
+    </script>
+</body>
+
+</html>

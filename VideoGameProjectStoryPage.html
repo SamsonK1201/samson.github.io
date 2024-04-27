@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.js"
+        integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Story Page</title>
     <style>
         body {
@@ -39,14 +42,33 @@
 </head>
 
 <body>
+    <!--button to continue after story-->
     <div id="next">
         <button onclick="next()">Continue</button>
     </div>
 
     <script>
+        let w = window.innerWidth
+        let h = window.innerHeight
+        //function for next button
         function next() {
             window.location.href = "VideoGameProject.html"
         }
+        //preload music
+        function preload() {
+            bgMusic = loadSound('bgMusic.mp3')
+            bg = loadImage('storybg.png')
+
+        }
+        //load music and set volume of music
+        function setup() {
+            createCanvas(w, h)
+            bgMusic.loop()
+            bgMusic.setVolume(0.3)
+            background(bg)
+        }
+
+
     </script>
 </body>
 

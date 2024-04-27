@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.js"
+        integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Help Page</title>
     <style>
         body {
@@ -39,14 +42,37 @@
 </head>
 
 <body>
+    <!--Back button to return to main page-->
     <div id="back">
         <button onclick="back()">Back</button>
     </div>
+    <div id = "stopMusic">
+        <button onclick = "stopMusic()">Mute Music</button>
+    </div>
 
     <script>
+        //declare variables
+        let w = window.innerWidth
+        let h = window.innerHeight
+
+        //function to go back to main page
         function back() {
             window.location.href = "VideoGameProject.html"
         }
+
+        //preload sound
+        function preload() {
+            bgMusic = loadSound('bgMusic.mp3')
+        }
+
+
+        function setup() {
+            createCanvas(w, h);
+            //play background sound
+            bgMusic.loop()
+            bgMusic.setVolume(0.3)
+        }
+
     </script>
 </body>
 

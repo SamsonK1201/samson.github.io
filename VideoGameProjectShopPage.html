@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.js"
+        integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Shop Page</title>
     <style>
         body {
@@ -33,7 +36,7 @@
             border-radius: 10px;
         }
 
-        #back:hover{
+        #back:hover {
             transform: translateY(-2.5px);
         }
 
@@ -46,7 +49,8 @@
             transition: transform 0.3s;
 
         }
-        .shopButton:hover{
+
+        .shopButton:hover {
             transform: translateY(-2.5px);
         }
 
@@ -165,54 +169,67 @@
 </head>
 
 <body>
+    <!--Back Button-->
     <div id="back">
         <button onclick="back()" id="backButton">Back</button>
     </div>
+    <!--Stats Div-->
     <div id="stats">
+        <!--Money Display-->
         <div class="statsdiv">
             <h2 id="money"></h2>
         </div>
+        <!--EXP Display-->
         <div class="statsdiv">
             <h2 id="exp"></h2>
         </div>
     </div>
 
 
+    <!--Shop Div-->
     <div id="shop">
+        <!--1st row of shop-->
         <div class="row1">
             <img src="sugarcane.png" class="crop">
+            <!--Sugarcane-->
             <button onclick="sugarcane()" id="sugarcane" class="shopButton">Sugarcane</button>
             <p class="subrow1">$1,500</p>
             <p class="subrow2">300 Exp</p>
         </div>
         <div class="row1">
             <img src="corn.png" class="crop">
+            <!--Corn-->
             <button onclick="corn()" id="corn" class="shopButton">Corn</button>
             <p class="subrow1">$4,500</p>
             <p class="subrow2">1,000 Exp</p>
         </div>
         <div class="row1">
             <img src="sorghum.png" class="crop">
+            <!--Sorghum-->
             <button onclick="sorghum()" id="sorghum" class="shopButton">Sorghum</button>
             <p class="subrow1">$7,500</p>
             <p class="subrow2">2,000 Exp</p>
         </div>
     </div>
     <div id="shop2">
+        <!--2nd row of shop-->
         <div class="row2">
             <img src="canola.png" class="crop">
+            <!--Canola-->
             <button onclick="canola()" id="canola" class="shopButton">Canola</button>
             <p class="subrow3">$11,000</p>
             <p class="subrow4">4,000 Exp</p>
         </div>
         <div class="row2">
             <img src="sunflower.png" class="crop" id="sunflowerpic">
+            <!--Sunflower-->
             <button onclick="sunflower()" id="sunflower" class="shopButton">Sunflower</button>
             <p class="subrow3">$16,000</p>
             <p class="subrow4">6,000 Exp</p>
         </div>
         <div class="row2">
             <img src="soybean.png" class="crop">
+            <!--Soybean-->
             <button onclick="soybean()" id="soybean" class="shopButton">Soybean</button>
             <p class="subrow3">$25,000</p>
             <p class="subrow4">10,000 Exp</p>
@@ -220,126 +237,202 @@
     </div>
 </body>
 <script>
+    //declare variables
     let w = window.innerWidth
     let h = window.innerHeight
-    let exp = 0
-    let money = 0
-    let level = 0
+    let exp 
+    let money 
     let sugarcaneBought = 0
     let cornBought = 0
     let sorghumBought = 0
     let canolaBought = 0
     let sunflowerBought = 0
     let soybeanBought = 0
+    let sugarcaneText = 0
+    let cornText = 0
+    let sorghumText = 0
+    let canolaText = 0
+    let sunflowerText = 0
+    let soybeanText = 0
 
-
-
+    //function for button to go back to main page
     function back() {
         window.location.href = "VideoGameProject.html"
     }
+    //preload music
+    function preload() {
+        bgMusic = loadSound('bgMusic.mp3')
+    }
 
+    //loop and set volume of music
+    function setup() {
+        bgMusic.loop()
+        bgMusic.setVolume(0.3)
+    }
+
+    //load data when window loads
     window.onload = function () {
+        //load money and exp
         money = parseFloat(localStorage.getItem('money'))
         exp = parseFloat(localStorage.getItem('exp'))
-        level = parseFloat(localStorage.getItem('level'))
-        //FIX LOCAL STORAGE PLS HURRY TIME IS RUNNING OUT 
+        //print to screen
         document.getElementById('money').innerHTML = "Money: $" + money
         document.getElementById('exp').innerHTML = "Exp: " + exp
+
+        //load items from local storage
         sugarcaneBought = parseFloat(localStorage.getItem('sugarcaneBought'))
         cornBought = parseFloat(localStorage.getItem('cornBought'))
         sorghumBought = parseFloat(localStorage.getItem('sorghumBought'))
         canolaBought = parseFloat(localStorage.getItem('canolaBought'))
         sunflowerBought = parseFloat(localStorage.getItem('sunflowerBought'))
         soybeanBought = parseFloat(localStorage.getItem('soybeanBought'))
-        if (sugarcaneBought == 1) {
+        
+        sugarcaneText = parseFloat(localStorage.getItem('sugarcaneText'))
+        if (sugarcaneText == 1) {
             document.getElementById('sugarcane').innerHTML = "You bought this!"
         }
-        if (cornBought == 1) {
+        
+        cornText = parseFloat(localStorage.getItem('cornText'))
+        if (cornText == 1) {
             document.getElementById('corn').innerHTML = "You bought this!"
         }
-        if (sorghumBought == 1) {
+
+        sorghumText = parseFloat(localStorage.getItem('sorghumText'))
+        if (sorghumText == 1) {
             document.getElementById('sorghum').innerHTML = "You bought this!"
         }
-        if (canolaBought == 1) {
+
+        canolaText = parseFloat(localStorage.getItem('canolaText'))
+        if (canolaText == 1) {
             document.getElementById('canola').innerHTML = "You bought this!"
         }
-        if (sunflowerBought == 1) {
+
+        sunflowerText = parseFloat(localStorage.getItem('sunflowerText'))
+        if (sunflowerText == 1) {
             document.getElementById('sunflower').innerHTML = "You bought this!"
         }
-        if (soybeanBought == 1) {
+
+        soybeanText = parseFloat(localStorage.getItem('soybeanText'))
+        if (soybeanText == 1) {
             document.getElementById('soybean').innerHTML = "You bought this!"
         }
-        console.log(level)
+
     }
 
     function sugarcane() {
+        //Sugarcane Requirements
         if (money >= 1500 && exp >= 300) {
             document.getElementById('sugarcane').innerHTML = "You bought this!"
+            //set sugarcaneBought to 1, so it will only plant Sugarcane
             sugarcaneBought = 1
+            sugarcaneText = 1
             localStorage.setItem('sugarcaneBought', sugarcaneBought)
+            localStorage.setItem('sugarcaneText', sugarcaneText)
+            console.log(sugarcaneText)
+            //set plantWheat to 0, so it will stop planting Wheat
             plantWheat = 0
             localStorage.setItem('plantWheat', plantWheat)
         }
+
         else {
+            //give an error if requiements are not met
             document.getElementById('sugarcane').innerHTML = "You can't buy this yet!"
         }
 
     }
 
     function corn() {
+        //Corn requirements
         if (money >= 4500 && exp >= 1000) {
             document.getElementById('corn').innerHTML = "You bought this!"
+            //set cornBought to 1, so it will only plant Corn
             cornBought = 1
+            cornText = 1
             localStorage.setItem('cornBought', cornBought)
+            localStorage.setItem('cornText', cornText)
+            //set sugarcaneBought to 0, so it will stop planting Sugarcane
             sugarcaneBought = 0
             localStorage.setItem('sugarcaneBought', sugarcaneBought)
-            console.log('corn')
         }
         else {
+            //give an error if requiements are not met
             document.getElementById('corn').innerHTML = "You can't buy this yet!"
         }
     }
 
     function sorghum() {
+        //Sorghum requirements
         if (money >= 7500 && exp >= 2000) {
             document.getElementById('sorghum').innerHTML = "You bought this!"
+            //set sorghumBought to 1, so it will only plant Sorghum
             sorghumBought = 1
+            sorghumText = 1
             localStorage.setItem('sorghumBought', sorghumBought)
+            localStorage.setItem('sorghumText', sorghumText)
+            //set cornBought to 0, so it will stop planting Corn
+            cornBought = 0
+            localStorage.setItem('cornBought', cornBought)
+
         }
         else {
+            //give an error if requiements are not met
             document.getElementById('sorghum').innerHTML = "You can't buy this yet!"
         }
     }
 
     function canola() {
+        //Canola requirements
         if (money >= 11000 && exp >= 4000) {
             document.getElementById('canola').innerHTML = "You bought this!"
+            //set canolaBought to 1, so it will only plant Canola
             canolaBought = 1
+            canolaText = 1
             localStorage.setItem('canolaBought', canolaBought)
+            localStorage.setItem('canolaText', canolaText)
+            //set sorghumBought to 0, so it will stop planting Sorghum
+            sorghumBought = 0
+            localStorage.setItem('sorghumBought', sorghumBought)
         }
         else {
+            //give an error if requiements are not met
             document.getElementById('canola').innerHTML = "You can't buy this yet!"
         }
     }
 
     function sunflower() {
+        //Sunflower requirements
         if (money >= 16000 && exp >= 6000) {
-            document.getElementById('canola').innerHTML = "You bought this!"
+            document.getElementById('sunflower').innerHTML = "You bought this!"
+            //set sunflowerBought to 1, so it will only plant Sunflower
             sunflowerBought = 1
+            sunflowerText = 1
             localStorage.setItem('sunflowerBought', sunflowerBought)
+            localStorage.setItem('sunflowerText', sunflowerText)
+            //set canolaBought to 0, so it will stop planting Canola
+            canolaBought = 0
+            localStorage.setItem('canolaBought', canolaBought)
         }
         else {
+            //give an error if requiements are not met
             document.getElementById('sunflower').innerHTML = "You can't buy this yet!"
         }
     }
 
     function soybean() {
+        //Soybean requirements
         if (money >= 25000 && exp >= 10000) {
             document.getElementById('soybean').innerHTML = "You bought this!"
+            //set soybeanBought to 1, so it will only plant Soybean
             soybeanBought = 1
+            soybeanText = 1
             localStorage.setItem('soybeanBought', soybeanBought)
+            localStorage.setItem('soybeanText', soybeanText)
+            //set sunflowerBought to 0, so it will stop planting Sunflower
+            sunflowerBought = 0
+            localStorage.setItem('sunflowerBought', sunflowerBought)
         }
         else {
+            //give an error if requiements are not met
             document.getElementById('soybean').innerHTML = "You can't buy this yet!"
         }
     }

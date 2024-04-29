@@ -25,11 +25,6 @@
             top: 91%;
             left: 87%;
             cursor: pointer;
-            opacity: 0;
-            animation-name: fadein;
-            animation-duration: 3s;
-            animation-fill-mode: forwards;
-            animation-delay: 5s;
             transition: transform 0.3s;
         }
 
@@ -90,11 +85,10 @@
             left: 40%;
             text-align: center;
             opacity: 0;
-            cursor: pointer;
             animation-name: fadein;
-            animation-duration: 2s;
+            animation-duration: 3s;
             animation-fill-mode: forwards;
-            animation-delay: 4s;
+            animation-delay: 3s;
             transition: transform 0.3s;
         }
 
@@ -113,32 +107,40 @@
 
 
         }
+
+        #clearData {
+            position: absolute;
+            color: white;
+            top: 91%;
+            left: 91%;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        #clearData:hover {
+            transform: translateY(-2.5px);
+        }
     </style>
 </head>
 
 <body>
-    <!--button to continue after story-->
-    <div id="continueButton">
-        <button onclick="continueButton()">Continue</button>
-    </div>
-    <!--button to load next sentence for story-->
     <div id="nextButton">
-        <button onclick="nextButton()" id="button">Next</button>
+        <button onclick="nextButton()">Next</button>
     </div>
-    <!--div for farmer-->
     <div id="farmerdiv">
         <img src="farmer.png" id="farmer">
     </div>
-    <!--first line of story-->
     <div id="farmerSpeech">
         <p id="text">Long time no see grandson, thanks for coming to help out the farm.</p>
     </div>
+    <!--Clear Button-->
+    <div id="clearData">
+        <button onclick="clearData()">Clear</button>
+    </div>
 
     <script>
-        //declare variables
         let w = window.innerWidth
         let h = window.innerHeight
-        //array for story
         let text = [
             "A new lemon farm has opened up down the road and they are starting to steal our business.",
             "We need all hands on deck to push them out and reclaim our title as the best farm in the state.",
@@ -147,29 +149,27 @@
             "Once we make $40,000, we will be in the clear and we can pay off our loan and still make profit."
         ]
         let index = 0
-        //function for next button
-        function continueButton() {
-            //be able to continue only if user has seen the entire story
-            if (index == 4) {
-                window.location.href = "VideoGameProject.html"
-            }
-            else{
-                let button = document.getElementById('button')
-                //disable the button
-                button.disabled = true
-                //disable the onclick function
-                button.onclick = null
-            }
+        //function to clear data
+        function clearData() {
+            localStorage.clear()
+            savedMoney = 100
+            savedEXP = 0
+            plantWheat = 1
+            sugarcaneBought = 0
+            cornBought = 0
+            sorghumBought = 0
+            canolaBought = 0
+            sunflowerBought = 0
+            soybeanBought = 0
+            window.location.href = "VideoGameProject.html"
         }
 
         function nextButton() {
-            //load next sentence when user clicks next
             if (index < 4) {
                 document.getElementById('text').innerHTML = text[index]
                 index += 1
                 console.log(index)
             }
-            //when user has loaded the entire story, remove the next button
             if (index == 4) {
                 let rm = document.getElementById('nextButton')
                 //get the parent of the element

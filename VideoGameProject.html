@@ -105,10 +105,6 @@
   <div id="shop">
     <button onclick="shop()">Shop</button>
   </div>
-  <!--Clear Button-->
-  <div id="clearData">
-    <button onclick="clearData()">Clear</button>
-  </div>
   <!--Help/Settings Button-->
   <div id="help">
     <button onclick="help()">Help</button>
@@ -116,14 +112,10 @@
 </body>
 <script>
   /*TO DO LIST: PLS DO SUPER IMPRRANT LIKE 2 DAYS LEFT IDK HOW TO STRESS THIS ENOUGH WHY DIDNT U CODE YESTERDAY U ABSOLUTE BUM
-
-  CROP ANIMATION GROWING KEYFRAME
-  STORY: SEPERATE PAGE
   MAKE END SCREEN FOR CLEAR 
-
-  POSSIBLE: 
-  GO BACK TO PREVIOUS CROPS
-
+  FIX HELP PAGE
+  FINISH COMMENTS
+  SHOP PAGE BG
   */
   //Height and Width
   let windowW = window.innerWidth
@@ -228,20 +220,6 @@
 
   }
 
-  //function to clear data
-  function clearData() {
-    localStorage.clear()
-    savedMoney = 100
-    savedEXP = 0
-    plantWheat = 1
-    sugarcaneBought = 0
-    cornBought = 0
-    sorghumBought = 0
-    canolaBought = 0
-    sunflowerBought = 0
-    soybeanBought = 0    
-  } 
-
   function setup() {
     createCanvas(windowW, windowH);
     loadGameState()
@@ -251,7 +229,7 @@
 
 
   function draw() {
-    clear()
+    clear() 
     imageMode(CORNER)
     background(bg)
     saveData()
@@ -289,6 +267,9 @@
       if (savedMoney < 25000 || savedEXP < 10000) {
         document.getElementById('placeholder').innerText = "Next Upgrade: $25,000 & 10,000 Exp"
       }
+    }
+    if (savedMoney >=40000 ){
+      window.location.href = "VideoGameProjectEndPage.html"
     }
 
     // Display crops
@@ -397,8 +378,8 @@
           let y = farmerY - 20;
           crops.push(new Sugarcane(x, y))
           savedMoney -= 25
-          //plantSound.play()
-          //plantSound.setVolume(0.2)
+          plantSound.play()
+          plantSound.setVolume(0.2)
         }
 
         //Corn
@@ -408,8 +389,8 @@
           crops.push(new Corn(x, y))
           savedMoney -= 40
           console.log('corn')
-          //plantSound.play()
-          //plantSound.setVolume(0.2)
+          plantSound.play()
+          plantSound.setVolume(0.2)
         }
 
 
@@ -420,8 +401,8 @@
           let y = farmerY - 20;
           crops.push(new Sorghum(x, y))
           savedMoney -= 60
-          //plantSound.play()
-          //plantSound.setVolume(0.2)
+          plantSound.play()
+          plantSound.setVolume(0.2)
         }
 
 
@@ -432,8 +413,8 @@
           crops.push(new Canola(x, y))
           savedMoney -= 80
           console.log('canola')
-          //plantSound.play()
-          //plantSound.setVolume(0.2)
+          plantSound.play()
+          plantSound.setVolume(0.2)
 
         }
 
@@ -445,8 +426,8 @@
           crops.push(new Sunflower(x, y))
           savedMoney -= 100
           console.log('sunflower')
-          //plantSound.play()
-          //plantSound.setVolume(0.2)
+          plantSound.play()
+          plantSound.setVolume(0.2)
         }
 
         //Soybean
@@ -456,8 +437,8 @@
           crops.push(new Soybean(x, y))
           savedMoney -= 140
           console.log('soybean')
-          //plantSound.play()
-          //plantSound.setVolume(0.2)
+          plantSound.play()
+          plantSound.setVolume(0.2)
         }
       }
     }

@@ -38,6 +38,31 @@
         #back:hover {
             transform: translateY(-2.5px);
         }
+
+        #controls{
+            position: absolute;
+            top: 5.5%;
+            left: 1%;
+            width: 100%;
+            height: 20%;
+            z-index: 5;
+        }
+
+        h1{
+            text-decoration: underline;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
+        }
+
+        p{
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
+            font-size: 20px;  
+        }
+
+        .highlight{
+            background-color: #274d66;
+        }
     </style>
 </head>
 
@@ -46,8 +71,14 @@
     <div id="back">
         <button onclick="back()">Back</button>
     </div>
-    <div id = "stopMusic">
-        <button onclick = "stopMusic()">Mute Music</button>
+
+    <!--Div for information needed for the game-->
+    <div id = "controls">
+        <h1>Controls</h1>
+        <p>Move with <u>WASD</u> or <u>Arrow Keys</u>. Click to plant the current crop you have purchased. Once you have planted the crop, it will grow and <span class = "highlight">automatically harvest</span>.</p>
+
+        <h1>Information</h1>
+        <p>Your <u>money</u> and <u>exp</u> will be displayed in the top left, along with how much you need for the next upgrade. Once you have gained enough money and exp for the next upgrade, you can go to the shop to purchase a new crop. Higher tier crops will have a higher yield and exp gain. When you reach the goal of <u>$40,000</u> there will be an option to either keep farming or to reset your data and start again.</p>
     </div>
 
     <script>
@@ -65,12 +96,15 @@
             bgMusic = loadSound('bgMusic.mp3')
         }
 
-
         function setup() {
             createCanvas(w, h);
-            //play background sound
+            //loop music and set volume
             bgMusic.loop()
             bgMusic.setVolume(0.3)
+        }
+        function draw(){
+            //set color of the background
+            background(56, 111, 148)
         }
 
     </script>

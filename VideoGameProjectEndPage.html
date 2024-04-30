@@ -19,11 +19,11 @@
             background-color: transparent;
         }
 
-        #continueButton {
+        #keepGoing {
             position: absolute;
             color: white;
-            top: 91%;
-            left: 87%;
+            top: 83%;
+            left: 79.5%;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -35,7 +35,7 @@
             border-radius: 10px;
         }
 
-        #continueButton:hover {
+        #keepGoing:hover {
             transform: translateY(-2.5px);
         }
 
@@ -58,12 +58,12 @@
 
         #farmerSpeech {
             position: absolute;
-            top: 33%;
+            top: 40%;
             left: 24%;
             clip-path: polygon(20% 0, 100% 0, 100% 50%, 60% 50%, 14% 85%, 20% 50%);
             background-color: rgba(255, 255, 255, 0.5);
             width: 25vw;
-            height: 25vh;
+            height: 15vh;
             opacity: 0;
             animation-name: fadein;
             animation-duration: 1s;
@@ -81,7 +81,7 @@
 
         #nextButton {
             position: absolute;
-            top: 47%;
+            top: 50%;
             left: 40%;
             text-align: center;
             opacity: 0;
@@ -111,8 +111,8 @@
         #clearData {
             position: absolute;
             color: white;
-            top: 91%;
-            left: 91%;
+            top: 70%;
+            left: 79.5%;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -120,35 +120,62 @@
         #clearData:hover {
             transform: translateY(-2.5px);
         }
+
+        #lemondiv {
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 25;
+            height: 25;
+        }
+
+        #lemon {
+            width: 25;
+            height: 25;
+        }
+
+        .optionButtons {
+            width: 20vw
+        }
     </style>
 </head>
 
 <body>
+    <!--Next Button-->
     <div id="nextButton">
         <button onclick="nextButton()">Next</button>
     </div>
+    <!--Div for the farmer picture-->
     <div id="farmerdiv">
-        <img src="farmer.png" id="farmer">
+        <img src="farmerGrandpa.png" id="farmer">
     </div>
+    <!--Hidden easter egg-->
+    <div id="lemondiv">
+        <img src="The_True_Winner.png" id="lemon">
+    </div>
+    <!--speech for the farmer-->
     <div id="farmerSpeech">
-        <p id="text">Long time no see grandson, thanks for coming to help out the farm.</p>
+        <p id="text">Thanks for coming out to help again!</p>
     </div>
     <!--Clear Button-->
     <div id="clearData">
-        <button onclick="clearData()">Clear</button>
+        <button onclick="clearData()" class="optionButtons">Clear and Restart</button>
+    </div>
+    <!--Option to continue-->
+    <div id="keepGoing">
+        <button onclick="keepGoing()" class="optionButtons">Continue and Keep Playing</button>
     </div>
 
     <script>
+        //set variables
         let w = window.innerWidth
         let h = window.innerHeight
-        let text = [
-            "A new lemon farm has opened up down the road and they are starting to steal our business.",
-            "We need all hands on deck to push them out and reclaim our title as the best farm in the state.",
-            "We took out a loan for the farm to buy new equipment, but we haven't made that much money because of the other farm.",
-            "Not only do we need to compete against them, we also have a loan shark out for us.",
-            "Once we make $40,000, we will be in the clear and we can pay off our loan and still make profit."
-        ]
         let index = 0
+
+        //array for story
+        let text = [
+            "Maybe the true farm was the friends we made along the way."
+        ]
         //function to clear data
         function clearData() {
             localStorage.clear()
@@ -164,13 +191,21 @@
             window.location.href = "VideoGameProject.html"
         }
 
+        //function to continue, returns to main page
+        function keepGoing() {
+            window.location.href = "VideoGameProject.html"
+            prestige = 1
+            localStorage.setItem('prestige',prestige)
+        }
+
+        //function to continue the story
         function nextButton() {
-            if (index < 4) {
+            if (index < 1) {
                 document.getElementById('text').innerHTML = text[index]
                 index += 1
-                console.log(index)
             }
-            if (index == 4) {
+            //removes the next button when the text is finishe
+            if (index == 1) {
                 let rm = document.getElementById('nextButton')
                 //get the parent of the element
                 let parent = rm.parentNode
@@ -184,14 +219,14 @@
             bg = loadImage('storybg.png')
 
         }
-        //load music and set volume of music
         function setup() {
             createCanvas(w, h)
+            //load music and set volume of music
             bgMusic.loop()
             bgMusic.setVolume(0.3)
+            //set background
             background(bg)
         }
-        //window.alert
 
 
     </script>

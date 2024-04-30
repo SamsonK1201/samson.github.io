@@ -47,7 +47,6 @@
             border-radius: 10px;
             cursor: pointer;
             transition: transform 0.3s;
-
         }
 
         .shopButton:hover {
@@ -56,7 +55,7 @@
 
         #shop {
             width: 100%;
-            height: 50vh;
+            height: 30vh;
             align-items: center;
             display: flex;
             justify-content: space-around;
@@ -65,11 +64,13 @@
             flex-direction: row;
             margin-top: 1%;
             text-align: center;
+            position: absolute;
+            top: 10%;
         }
 
         .row1 {
             width: 20%;
-            height: 55%;
+            height: 80%;
             margin: auto;
         }
 
@@ -105,6 +106,8 @@
             flex-direction: row;
             margin-top: -4%;
             text-align: center;
+            position: absolute;
+            top: 53%;
 
         }
 
@@ -143,6 +146,7 @@
         #stats {
             display: flex;
             flex-direction: column;
+            top: 3%;
             left: 10%;
             width: 30%;
             position: absolute;
@@ -157,6 +161,8 @@
 
         h2 {
             color: black;
+            font-family: 'Courier New', Courier, monospace;
+            font-style: bold;
         }
 
         #sunflowerpic {
@@ -240,8 +246,8 @@
     //declare variables
     let w = window.innerWidth
     let h = window.innerHeight
-    let exp 
-    let money 
+    let exp
+    let money
     let sugarcaneBought = 0
     let cornBought = 0
     let sorghumBought = 0
@@ -256,9 +262,8 @@
     let soybeanText = 0
 
     //function for button to go back to main page
-    function back() {
-        window.location.href = "VideoGameProject.html"
-    }
+    
+
     //preload music
     function preload() {
         bgMusic = loadSound('bgMusic.mp3')
@@ -266,8 +271,17 @@
 
     //loop and set volume of music
     function setup() {
+        createCanvas(w, h)
         bgMusic.loop()
         bgMusic.setVolume(0.3)
+    }
+    function draw() {
+        //set color of the background
+        background(56, 111, 148)
+    }
+    function back() {
+        window.location.href = "VideoGameProject.html"
+        console.log('hello')
     }
 
     //load data when window loads
@@ -286,12 +300,13 @@
         canolaBought = parseFloat(localStorage.getItem('canolaBought'))
         sunflowerBought = parseFloat(localStorage.getItem('sunflowerBought'))
         soybeanBought = parseFloat(localStorage.getItem('soybeanBought'))
-        
+
+        //if the item is bought, the button will permanently say you bought this
         sugarcaneText = parseFloat(localStorage.getItem('sugarcaneText'))
         if (sugarcaneText == 1) {
             document.getElementById('sugarcane').innerHTML = "You bought this!"
         }
-        
+
         cornText = parseFloat(localStorage.getItem('cornText'))
         if (cornText == 1) {
             document.getElementById('corn').innerHTML = "You bought this!"

@@ -127,7 +127,7 @@
     </div>
     <!--div for farmer-->
     <div id="farmerdiv">
-        <img src="farmer.png" id="farmer">
+        <img src="farmerGrandpa.png" id="farmer">
     </div>
     <!--first line of story-->
     <div id="farmerSpeech">
@@ -138,6 +138,7 @@
         //declare variables
         let w = window.innerWidth
         let h = window.innerHeight
+        let index = 0
         //array for story
         let text = [
             "A new lemon farm has opened up down the road and they are starting to steal our business.",
@@ -146,14 +147,13 @@
             "Not only do we need to compete against them, we also have a loan shark out for us.",
             "Once we make $40,000, we will be in the clear and we can pay off our loan and still make profit."
         ]
-        let index = 0
         //function for next button
         function continueButton() {
             //be able to continue only if user has seen the entire story
             if (index == 4) {
                 window.location.href = "VideoGameProject.html"
             }
-            else{
+            else {
                 let button = document.getElementById('button')
                 //disable the button
                 button.disabled = true
@@ -184,14 +184,14 @@
             bg = loadImage('storybg.png')
 
         }
-        //load music and set volume of music
         function setup() {
             createCanvas(w, h)
+            //loop and set volume of music
             bgMusic.loop()
             bgMusic.setVolume(0.3)
+            //set background
             background(bg)
         }
-        //window.alert
 
 
     </script>
